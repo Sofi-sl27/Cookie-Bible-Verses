@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>A Little Encouragement for You</title>
+  <style>
+    :root {
+      --bg1: #fff9f4;
+      --bg2: #f7efe8;
+      --card: #ffffff;
+      --text: #3f342f;
+      --muted: #7a6961;
+      --accent: #b4774e;
+      --accent-dark: #8b593b;
+      --border: #eadfd7;
+    }
+    * { box-sizing: border-box; }
+    body {
+      margin: 0; min-height: 100vh;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Arial, sans-serif;
+      background: linear-gradient(145deg, var(--bg1), var(--bg2));
+      color: var(--text);
+      display: flex; align-items: center; justify-content: center;
+      padding: 24px;
+    }
+    .card {
+      width: min(560px, 100%);
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 28px;
+      padding: 38px 28px;
+      text-align: center;
+      box-shadow: 0 16px 45px rgba(87, 60, 46, 0.10);
+    }
+    .cookie { font-size: 46px; margin-bottom: 12px; }
+    h1 { font-size: clamp(28px, 7vw, 42px); line-height: 1.1; margin: 0 0 12px; }
+    .subtitle { color: var(--muted); font-size: 17px; margin: 0 auto 30px; max-width: 420px; line-height: 1.5; }
+    .verse-box {
+      background: #fffaf6;
+      border: 1px solid var(--border);
+      border-radius: 20px;
+      padding: 26px 20px;
+      margin: 0 0 22px;
+    }
+    .label {
+      text-transform: uppercase; letter-spacing: .12em;
+      font-size: 12px; color: var(--muted); margin-bottom: 12px; font-weight: 700;
+    }
+    #verseText {
+      font-size: clamp(23px, 6vw, 31px);
+      line-height: 1.35;
+      font-weight: 750;
+      margin: 0 0 14px;
+    }
+    #reference {
+      font-size: 18px;
+      font-weight: 700;
+      color: var(--accent-dark);
+      margin: 0;
+    }
+    .button {
+      display: inline-block; width: 100%;
+      padding: 16px 22px; border-radius: 14px;
+      background: var(--accent); color: white;
+      text-decoration: none; font-size: 17px; font-weight: 700;
+      transition: .2s ease; border: 0; cursor: pointer;
+    }
+    .button:hover { background: var(--accent-dark); transform: translateY(-1px); }
+    .another { margin-top: 12px; background: transparent; color: var(--accent-dark); border: 1px solid var(--border); }
+    .another:hover { background: #fff8f3; }
+    .footer { margin-top: 28px; color: var(--muted); font-size: 14px; line-height: 1.5; }
+    .tiny { margin-top: 14px; font-size: 11px; color: #9b8b83; }
+  </style>
+</head>
+<body>
+  <main class="card">
+    <div class="cookie">🍪🤍</div>
+    <h1>A little encouragement for you</h1>
+    <p class="subtitle">Maybe this is the reminder you needed today.</p>
+
+    <section class="verse-box">
+      <div class="label">Your verse for today</div>
+
+      <!-- A real verse is shown by default, even if JavaScript is blocked -->
+      <p id="verseText">“Be still, and know that I am God.”</p>
+      <p id="reference">Psalm 46:10</p>
+    </section>
+
+    <a id="readButton" class="button"
+       href="https://www.biblegateway.com/passage/?search=Psalm%2046%3A10&version=NIV"
+       target="_blank" rel="noopener">
+      Read this passage in NIV
+    </a>
+
+    <button class="button another" onclick="showRandomVerse()">
+      Give me another verse
+    </button>
+
+    <div class="footer">We hope this little reminder makes your day a little sweeter. ✨</div>
+    <div class="tiny">Short NIV excerpts shown for encouragement. Full passages open on Bible Gateway.</div>
+  </main>
+
+  <script>
+    const verses = [
+      { text: "“Be still, and know that I am God.”", ref: "Psalm 46:10" },
+      { text: "“When I am afraid, I put my trust in you.”", ref: "Psalm 56:3" },
+      { text: "“The Lord is my shepherd, I lack nothing.”", ref: "Psalm 23:1" },
+      { text: "“Rejoice always.”", ref: "1 Thessalonians 5:16" },
+      { text: "“For we live by faith, not by sight.”", ref: "2 Corinthians 5:7" },
+      { text: "“Cast all your anxiety on him because he cares for you.”", ref: "1 Peter 5:7" },
+      { text: "“I can do all this through him who gives me strength.”", ref: "Philippians 4:13" },
+      { text: "“The Lord is my light and my salvation—whom shall I fear?”", ref: "Psalm 27:1" },
+      { text: "“The joy of the Lord is your strength.”", ref: "Nehemiah 8:10" },
+      { text: "“My grace is sufficient for you.”", ref: "2 Corinthians 12:9" },
+      { text: "“With God all things are possible.”", ref: "Matthew 19:26" },
+      { text: "“We love because he first loved us.”", ref: "1 John 4:19" },
+      { text: "“Let all that you do be done in love.”", ref: "1 Corinthians 16:14" },
+      { text: "“The Lord is good, a refuge in times of trouble.”", ref: "Nahum 1:7" },
+      { text: "“He gives strength to the weary.”", ref: "Isaiah 40:29" }
+    ];
+
+    function showRandomVerse() {
+      const v = verses[Math.floor(Math.random() * verses.length)];
+      document.getElementById("verseText").textContent = v.text;
+      document.getElementById("reference").textContent = v.ref;
+
+      const url =
+        "https://www.biblegateway.com/passage/?search=" +
+        encodeURIComponent(v.ref) +
+        "&version=NIV";
+      document.getElementById("readButton").href = url;
+    }
+
+    // Randomize immediately when JavaScript is available.
+    showRandomVerse();
+  </script>
+</body>
+</html>
